@@ -1,7 +1,7 @@
+import 'package:bookly/Features/home/presentation/views/widget/best_seller_list_view_item.dart';
 import 'package:bookly/Features/home/presentation/views/widget/custom_app_bar.dart';
 import 'package:bookly/Features/home/presentation/views/widget/featured_list_view.dart';
 import 'package:bookly/constants.dart';
-import 'package:bookly/core/utils/assets.dart';
 import 'package:bookly/core/utils/styles.dart';
 import 'package:flutter/material.dart';
 
@@ -11,51 +11,19 @@ class HomeViewBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 24),
+      padding: const EdgeInsets.symmetric(horizontal: 30),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          CustomAppBar(),
-          FeaturedBooksListView(),
-          SizedBox(height: 50),
+          const CustomAppBar(),
+          const FeaturedBooksListView(),
+          const SizedBox(height: 50),
           Text(
             'Best Seller',
-            style: Styles.textStyle18.copyWith(fontFamily: KGtSectraFine),
+            style: Styles.textStyle18.copyWith(fontFamily: kGtSectraFine),
           ),
-          BestSellerListViewItem(),
-        ],
-      ),
-    );
-  }
-}
-
-class BestSellerListViewItem extends StatelessWidget {
-  const BestSellerListViewItem({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      height: 125,
-      child: Row(
-        children: [
-          AspectRatio(
-            aspectRatio: 2.5 / 4,
-            child: Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(8),
-                color: Colors.red,
-                image: const DecorationImage(
-                  image: AssetImage(AssetsData.testImage),
-                  fit: BoxFit.cover,
-                ),
-              ),
-            ),
-          ),
-          Column(children: [
-              
-      
-            ],
-          ),
+          const SizedBox(height: 20),
+          const BestSellerListViewItem(),
         ],
       ),
     );
