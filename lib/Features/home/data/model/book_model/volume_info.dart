@@ -15,6 +15,8 @@ class VolumeInfo extends Equatable {
   final int? pageCount;
   final String? printType;
   final List<String>? categories;
+  final int? averageRating;
+  final int? ratingsCount;
   final String? maturityRating;
   final bool? allowAnonLogging;
   final String? contentVersion;
@@ -39,44 +41,46 @@ class VolumeInfo extends Equatable {
     this.allowAnonLogging,
     this.contentVersion,
     this.panelizationSummary,
-    required  this.imageLinks,
+    required this.imageLinks,
     this.language,
     this.previewLink,
     this.infoLink,
     this.canonicalVolumeLink,
+    this.averageRating,
+    this.ratingsCount,
   });
 
   factory VolumeInfo.fromJson(Map<String, dynamic> json) => VolumeInfo(
-  title: json['title'] as String?,
-  authors: (json['authors'] as List<dynamic>?)?.cast<String>(),
-      
-  publishedDate: json['publishedDate'] as String?,
-  description: json['description'] as String?,
-  industryIdentifiers: (json['industryIdentifiers'] as List<dynamic>?)
-      ?.map((e) => IndustryIdentifier.fromJson(e as Map<String, dynamic>))
-      .toList(),
-  readingModes: json['readingModes'] == null
-      ? null
-      : ReadingModes.fromJson(json['readingModes'] as Map<String, dynamic>),
-  pageCount: json['pageCount'] as int?,
-  printType: json['printType'] as String?,
-  categories: (json['categories'] as List<dynamic>?)?.cast<String>(),
-      
-  maturityRating: json['maturityRating'] as String?,
-  allowAnonLogging: json['allowAnonLogging'] as bool?,
-  contentVersion: json['contentVersion'] as String?,
-  panelizationSummary: json['panelizationSummary'] == null
-      ? null
-      : PanelizationSummary.fromJson(
-          json['panelizationSummary'] as Map<String, dynamic>,
-        ),
-  imageLinks: ImageLinks.fromJson(json['imageLinks'] as Map<String, dynamic>),
-  language: json['language'] as String?,
-  previewLink: json['previewLink'] as String?,
-  infoLink: json['infoLink'] as String?,
-  canonicalVolumeLink: json['canonicalVolumeLink'] as String?,
-);
+    title: json['title'] as String?,
+    authors: (json['authors'] as List<dynamic>?)?.cast<String>(),
 
+    publishedDate: json['publishedDate'] as String?,
+    description: json['description'] as String?,
+    industryIdentifiers: (json['industryIdentifiers'] as List<dynamic>?)
+        ?.map((e) => IndustryIdentifier.fromJson(e as Map<String, dynamic>))
+        .toList(),
+    readingModes: json['readingModes'] == null
+        ? null
+        : ReadingModes.fromJson(json['readingModes'] as Map<String, dynamic>),
+    pageCount: json['pageCount'] as int?,
+    printType: json['printType'] as String?,
+    categories: (json['categories'] as List<dynamic>?)?.cast<String>(),
+    averageRating: json['averageRating'] as int?,
+    ratingsCount: json['ratingCount'] as int?,
+    maturityRating: json['maturityRating'] as String?,
+    allowAnonLogging: json['allowAnonLogging'] as bool?,
+    contentVersion: json['contentVersion'] as String?,
+    panelizationSummary: json['panelizationSummary'] == null
+        ? null
+        : PanelizationSummary.fromJson(
+            json['panelizationSummary'] as Map<String, dynamic>,
+          ),
+    imageLinks: ImageLinks.fromJson(json['imageLinks'] as Map<String, dynamic>),
+    language: json['language'] as String?,
+    previewLink: json['previewLink'] as String?,
+    infoLink: json['infoLink'] as String?,
+    canonicalVolumeLink: json['canonicalVolumeLink'] as String?,
+  );
 
   Map<String, dynamic> toJson() => {
     'title': title,
