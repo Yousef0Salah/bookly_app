@@ -1,4 +1,5 @@
 import 'package:bookly/Features/home/data/model/book_model/book_model.dart';
+import 'package:bookly/core/utils/function/launch_url.dart';
 import 'package:bookly/core/widget/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -27,29 +28,10 @@ class BookAction extends StatelessWidget {
           Expanded(
             child: CustomButton(
               onPressed: () async {
-                final hasPdf = bookModel.accessInfo?.pdf?.isAvailable ?? false;
-
-                late final Uri uri;
-
-                if (hasPdf && bookModel.accessInfo?.pdf?.acsTokenLink != null) {
-                  final acsLink = bookModel.accessInfo!.pdf!.acsTokenLink!;
-                  final viewerUrl =
-                      'https://docs.google.com/gview?embedded=true&url=$acsLink';
-
-                  uri = Uri.parse(viewerUrl);
-                } else {
-                  uri = Uri.parse(bookModel.volumeInfo.previewLink!);
-                }
-
-                if (!await launchUrl(
-                  uri,
-                  mode: LaunchMode.externalApplication,
-                )) {
-                  throw Exception('Could not launch $uri');
-                }
+                launchCustomUrl(context, bookModel.volumeInfo.previewLink!);
               },
               fontSize: 16,
-              text: 'Free Preview',
+              text: getText(bookModel),
               backgroundColor: Color(0xffEF8262),
               textColor: Colors.white,
               borderRadius: BorderRadius.only(
@@ -61,5 +43,13 @@ class BookAction extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  String getText(BookModel bookmodel) {
+    if (bookmodel.volumeInfo.previewLink == null) {
+      return 'Not Avaliable';
+    } else {
+      return 'Free Preview';
+    }
   }
 }
