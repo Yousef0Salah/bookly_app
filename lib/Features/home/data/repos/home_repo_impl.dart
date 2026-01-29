@@ -70,4 +70,27 @@ class HomeRepoImpl implements HomeRepo {
       return left(ServerFailure(e.toString()));
     }
   }
+
+  @override
+  Future<Either<Failures, List<BookModel>>> fetchSearchBooks({
+    required String query,
+  }) async {
+    final encodedQuery = Uri.encodeComponent(query);
+    try {
+      var data = await apiService.get(
+
+        endPoint: 'volumes?q=intitle:$encodedQuery&Filtering=free-ebooks&orderBy=relevance',
+      );
+      List<BookModel> books = [];
+      for (var item in data['items']) {
+        books.add(BookModel.fromJson(item));
+      }
+      return right(books);
+    } on Exception catch (e) {
+      if (e is DioException) {
+        return left(ServerFailure.fromDioError(e));
+      }
+      return left(ServerFailure(e.toString()));
+    }
+  }
 }
